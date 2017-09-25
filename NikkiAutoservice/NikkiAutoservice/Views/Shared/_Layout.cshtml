@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Nikki - Autoservice Management</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")    
+</head>
+
+<body>    
+    <div class="navbar navbar-inverse navbar-fixed-top">        
+
+        <div class="container">
+            
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                @if (Session["UserID"] != null)                    
+                {
+                    @Html.ActionLink("Hello, " + @Session["Fullname"].ToString() + " (" + @Session["Username"].ToString() + ")", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                }
+
+
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>                    
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+
+                    @if (Session["UserID"] != null)
+                    {
+                        <li>@Html.ActionLink("Employee", "Index", "Employees")</li>
+                        <li>@Html.ActionLink("Customer", "Index", "Customers")</li>
+                        <li>@Html.ActionLink("Invoice", "Index", "Invoices")</li>
+                        <li>@Html.ActionLink("Position", "Index", "Positions")</li>
+                        <li>@Html.ActionLink("Repair", "Index", "Repairs")</li>
+                        <li>@Html.ActionLink("ReplacementPart", "Index", "ReplacementParts")</li>
+                        <li>@Html.ActionLink("Service", "Index", "Services")</li>
+                        <li>@Html.ActionLink("Payment Methods", "Index", "PaymentMethods")</li>
+                        <li>@Html.ActionLink("Accounts", "Index", "Account")</li>
+                    }                    
+                    @if (Session["UserID"] == null)
+                    {
+                        <li>@Html.ActionLink("Log in", "Login", "Account")</li>
+                        <li>@Html.ActionLink("Register", "Register", "Account")</li>
+                    }                                        
+                    @if (Session["UserID"] != null)
+                    {
+                        <li>@Html.ActionLink("Log out", "LogOut", "Account")</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+    </div>
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Nikki Autoservice</p>
+        </footer>
+    
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
